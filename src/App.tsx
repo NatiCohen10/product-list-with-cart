@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { IProduct } from "./types/porduct.types";
+import ProductItem from "./components/ProductItem";
+import { useCart } from "./contexts/CartContext";
+import CartDetails from "./components/CartDetails";
+import ConfirmationModal from "./components/ConfirmationModal";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { cartItems } = useCart();
+  useEffect(() => {
+    async function getProducts() {
+      try {
+        const { data } = await axios.get("http://localhost:8001/products");
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getProducts();
+  }, []);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr,auto] font-custom bg-customBackgroundMain">
+      <div className="px-4 sm:px-6 lg:pl-14 lg:pr-8">
+        <h1 className="font-customBold text-4xl py-10">Desserts</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {products.map((product) => (
+            <ProductItem key={product.name} product={product} />
+          ))}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div className="px-4 sm:px-6 lg:pr-14 lg:pl-8 w-full lg:w-[500px] mt-8 lg:mt-10">
+        <CartDetails setIsModalOpen={setIsModalOpen} cartItems={cartItems} />
+        {isModalOpen && (
+          <ConfirmationModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+        )}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

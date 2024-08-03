@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -27,6 +27,12 @@ module.exports = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        customTextMain: "hsl(14, 65%, 9%)",
+        customAccent: "hsl(14, 86%, 42%)",
+        customSuccess: "hsl(159, 69%, 38%)",
+        customBackgroundMain: "hsl(20, 50%, 98%)",
+        customCategory: "hsl(7, 20%, 60%)",
+        customSeparator: "hsl(13, 31%, 94%)",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -71,7 +77,11 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      fontFamily: {
+        custom: ["RedHatText-Regular", "sans-serif"],
+        customBold: ["RedHatText-Bold", "sans-serif"],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

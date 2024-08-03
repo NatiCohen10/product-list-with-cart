@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: "RedHatText-Regular";
+    src: url("src/assets/fonts/RedHatText-Regular.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "RedHatText-Bold";
+    src: url("src/assets/fonts/RedHatText-Bold.ttf") format("truetype");
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
